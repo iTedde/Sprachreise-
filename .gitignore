@@ -1,0 +1,6 @@
+# Testausgaben und lokale Dateien
+sr_test/
+sr_autotest.txt
+*.sr_test_backup
+__pycache__/
+Werkzeuge/render/
