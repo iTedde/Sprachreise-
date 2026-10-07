@@ -260,8 +260,6 @@ module SR
           SR::UI.say(nil, "<c3=307030,C0E0C0>Tipp: Achte auf Fristen, Beträge und was du tun musst.</c3>")
         end
         # Fragen, während der Brief noch sichtbar ist (wie im echten Leben: nochmal nachlesen erlaubt)
-        paper.body = pages.join("
-")[0, 600] if pages.length > 1 && pages.join.length < 600
         quiz(questions, 5)
       end
     end

@@ -54,3 +54,16 @@ module SR
     __sr_finish_episode(num, pts_bonus)
   end
 end
+
+#===============================================================================
+# Einheitliche Fensterrahmen (Graphics/Windowskins/SR Text.png, SR Menue.png)
+#===============================================================================
+module MessageConfig
+  def self.pbDefaultSpeechFrame
+    return pbResolveBitmap("Graphics/Windowskins/SR Text") || ""
+  end
+
+  def self.pbDefaultSystemFrame
+    return pbResolveBitmap("Graphics/Windowskins/SR Menue") || ""
+  end
+end

@@ -128,7 +128,7 @@ module SR
           name = unlocked ? c[:name] : "?"
           lx = (key == :duesseldorf) ? x - 4 - b.text_size(name).width - 4 : x + 7
           ly = (key == :duesseldorf) ? y - 16 : y - 10
-          pbDrawShadowText(b, lx, ly, 120, 20, SR::UI.fmt(name), Color.new(24, 24, 32), Color.new(240, 240, 232))
+          pbDrawShadowText(b, lx, ly, 120, 20, SR::UI.plain(name), Color.new(24, 24, 32), Color.new(240, 240, 232))
         end
         # Cursor
         sel = @list[@index]
@@ -141,11 +141,11 @@ module SR
         pbDrawShadowText(b, x0, 10, w, 28, "DEUTSCHLAND", Color.new(248, 248, 248), Color.new(0, 0, 0))
         pbSetSmallFont(b)
         title = (@mode == :travel) ? "Wohin möchtest du fahren?" : "Deine Reiseroute"
-        pbDrawShadowText(b, x0, 38, w, 20, SR::UI.fmt(title), Color.new(255, 206, 80), Color.new(0, 0, 0))
+        pbDrawShadowText(b, x0, 38, w, 20, SR::UI.plain(title), Color.new(255, 206, 80), Color.new(0, 0, 0))
         c = CITIES[sel]
         unlocked = SR.state.cities.include?(sel)
         pbSetSystemFont(b)
-        pbDrawShadowText(b, x0, 72, w, 28, SR::UI.fmt(unlocked ? c[:name] : "???"), Color.new(248, 248, 248), Color.new(0, 0, 0))
+        pbDrawShadowText(b, x0, 72, w, 28, SR::UI.plain(unlocked ? c[:name] : "???"), Color.new(248, 248, 248), Color.new(0, 0, 0))
         pbSetSmallFont(b)
         eps = c[:ep].map { |e| "Ep. #{e}" }.join(", ")
         info = unlocked ? c[:info] : "Noch nicht freigeschaltet."
@@ -157,7 +157,7 @@ module SR
         help = (@mode == :travel) ? "C: Fahren   X: Zurück" : "X: Zurück"
         pbDrawShadowText(b, x0, Graphics.height - 28, w, 20, help, Color.new(160, 168, 190), Color.new(0, 0, 0))
         pbDrawShadowText(b, x0, Graphics.height - 52, w, 20,
-                         SR::UI.fmt("Deutsch #{SR.level_name} · #{SR.points} SP"), Color.new(160, 220, 160), Color.new(0, 0, 0))
+                         SR::UI.plain("Deutsch #{SR.level_name} · #{SR.points} SP"), Color.new(160, 220, 160), Color.new(0, 0, 0))
       end
 
       def dotted_line(b, p1, p2, col)

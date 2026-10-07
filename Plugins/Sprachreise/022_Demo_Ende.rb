@@ -28,8 +28,8 @@ SR::Talk.define(:wg_epilog) do
   think("Ein Brief vom Amt. Mein Herz klopft. Habe ich etwas falsch gemacht?")
   # --- Brief-Minispiel ---------------------------------------------------------
   SR::Mini.letter("Brief", [
-    "Bundeszentralamt für Steuern\n53221 Bonn\n\nFrau\n{name} Ríos\nLehrter Straße 12\n10557 Berlin\n\n<b>Mitteilung Ihrer steuerlichen Identifikationsnummer</b>",
-    "Sehr geehrte Frau Ríos,\n\nIhnen wurde die folgende Identifikationsnummer zugeteilt:\n<b>12 345 678 901</b>\n\nDiese Nummer gilt lebenslang. Sie ändert sich auch bei einem Umzug nicht.\n\nBitte bewahren Sie dieses Schreiben sorgfältig auf. <b>Eine Antwort ist nicht erforderlich.</b>"
+    "Bundeszentralamt für Steuern\n53221 Bonn\n\nFrau\n{name} {nachname}\nLehrter Straße 12\n10557 Berlin\n\n<b>Mitteilung Ihrer steuerlichen Identifikationsnummer</b>",
+    "Sehr geehrte Frau {nachname},\n\nIhnen wurde die folgende Identifikationsnummer zugeteilt:\n<b>12 345 678 901</b>\n\nDiese Nummer gilt lebenslang. Sie ändert sich auch bei einem Umzug nicht.\n\nBitte bewahren Sie dieses Schreiben sorgfältig auf. <b>Eine Antwort ist nicht erforderlich.</b>"
   ], [
     { :q => "Von wem ist der Brief?", :o => ["Vom Bundeszentralamt für Steuern", "Vom Bürgeramt", "Von der Krankenkasse"], :a => 0,
       :why => "Oben links steht der Absender: Bundeszentralamt für Steuern." },
@@ -211,7 +211,7 @@ module SR
     end
     pbSetSystemFont(b)
     b.font.size = 38 rescue nil
-    pbDrawShadowText(b, 0, 14, b.width, 44, "ENDE DER DEMO", Color.new(248, 248, 248), Color.new(0, 0, 0), 2)
+    pbDrawShadowText(b, 0, 14, b.width, 44, "ENDE DER DEMO", Color.new(248, 248, 248), Color.new(0, 0, 0), 1)
     pbSetSystemFont(b)
     lines = [
       "Episode 1: Ankommen  ■",
@@ -226,10 +226,10 @@ module SR
     ]
     lines.each_with_index do |l, i|
       col = (i >= 7) ? Color.new(255, 206, 80) : Color.new(220, 224, 240)
-      pbDrawShadowText(b, 0, 86 + i * 28, b.width, 28, SR::UI.fmt(l), col, Color.new(0, 0, 0), 2)
+      pbDrawShadowText(b, 0, 86 + i * 28, b.width, 28, SR::UI.plain(l), col, Color.new(0, 0, 0), 1)
     end
     pbSetSmallFont(b)
-    pbDrawShadowText(b, 0, Graphics.height - 30, b.width, 24, "Taste drücken", Color.new(140, 150, 170), Color.new(0, 0, 0), 2)
+    pbDrawShadowText(b, 0, Graphics.height - 30, b.width, 24, "Taste drücken", Color.new(140, 150, 170), Color.new(0, 0, 0), 1)
     s.opacity = 0
     pbMEPlay("Badge get") rescue nil
     start = System.uptime

@@ -15,6 +15,8 @@
 | Systeme: Sprachpunkte, Sprachniveau A2→B1, Wörterbuch, Aufgaben, Dokumente, Tagebuch, Fähigkeiten, Deutschlandkarte, Reisen, Speichern | **fertig** |
 | Minispiele: Quiz/Dialog, Formular, Fehler finden, Unterlagen wählen, Telefon, Brief, Aushang, Terminbuchung, Klingelschilder, Mülltrennung | **fertig** |
 | Automatischer Durchspiel-Test (im echten Spiel) | **fertig** – Demo komplett durchspielbar, kein Softlock |
+| Sechs Herkunftssprachen (Spanisch, Arabisch, Französisch, Englisch, Türkisch, Ukrainisch) mit Übersetzungshilfe | **fertig** |
+| Einheitliches Fensterdesign (Textbox, Namensreiter, Auswahl, Hinweise, Banner) | **fertig** |
 
 ---
 
@@ -142,6 +144,23 @@ Neue Stelle am Hamburger Uniklinikum: Umziehen + Arbeit + Aufenthalt verlängern
   **DEUTSCH B1 – Du hast es geschafft.** *„Du kannst deinen Weg jetzt selbst finden.“*
 
 ---
+
+## D2. Herkunft und Muttersprache
+Zu Spielbeginn wählt man die Sprache, die man zu Hause spricht. Davon hängen Name, Heimat und Details der Hauptfigur ab – die Geschichte (Krankenpflegerin, Ziel B1, Anerkennung) bleibt gleich:
+
+| Sprache | Figur | Herkunft | Details |
+|---|---|---|---|
+| Spanisch | Daniela Ríos | Medellín, Kolumbien | Arepas, García Márquez |
+| Arabisch | Rania Haddad | Amman, Jordanien | Mansaf, Mahmud Darwisch; Tarek antwortet auf Arabisch (libanesische Eltern) |
+| Französisch | Aminata Diallo | Dakar, Senegal | Thieboudienne, Mariama Bâ |
+| Englisch | Joy Santos | Manila, Philippinen | Adobo, Nick Joaquín; Jonas will trotzdem Deutsch sprechen |
+| Türkisch | Elif Demir | Izmir, Türkei | Menemen, Orhan Pamuk; Tarek ist in Neukölln aufgewachsen |
+| Ukrainisch | Olena Kowalenko | Lwiw, Ukraine | Borschtsch, Taras Schewtschenko |
+
+Übersetzt werden: Wörterbuch (alle Lernwörter), markierte Wörter im Dialog `[[wort]]` („Ausgang (salida)“), Banner „Neues Wort“, Mamas Anrufe, Gedanken in der Muttersprache, der Straßenmusiker. Deutsche Grammatik zur Herkunft wird nebenbei gelernt: *aus Kolumbien*, *aus dem Senegal*, *aus der Türkei*, *von den Philippinen*.
+Technik: Arabisch wird beim Erzeugen der Daten verbunden und in Anzeigerichtung gebracht; Zeichen, die die Spielschrift nicht hat, erscheinen automatisch in einer Pixel-Ersatzschrift (GNU Unifont).
+
+**Einfache Sprache am Anfang:** Episode 1 nutzt kurze Hauptsätze im Präsens und wiederholt Schlüsselwörter; Episode 2 wird etwas komplexer, ab Episode 6 (B1-) kommen Nebensätze und Konjunktiv hinzu.
 
 ## E. Städte und warum
 

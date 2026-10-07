@@ -27,7 +27,7 @@ SR::Talk.define(:bett) do
       $game_screen.start_tone_change(Tone.new(-255, -255, -255, 0), 20)
       pbWait(1.0)
       narr("Die erste Nacht in Berlin. Draußen fährt eine S-Bahn. Irgendwo bellt ein Hund. Irgendwo ruft jemand »Digga«.")
-      think("Ich vermisse Mamas Arepas. Und die Sonne. Aber ich bin hier. Ich habe es geschafft - bis hierher.")
+      think("{heimweh} Aber ich bin hier. Ich habe es geschafft - bis hierher.")
       SR::UI.episode_card(2)
       set(:ep2_started)
       quest(:q_anmeldung)
@@ -53,20 +53,20 @@ SR::Talk.define(:laptop) do
   if !flag?(:ep2_started)
     if !flag?(:mama_call)
       pbMEPlay("Register phone", 80) rescue nil
-      say("Mama", "¿Mija? ¿Cómo estás? ¿Ya llegaste?")
-      say(me, "Sí, Mamá. Ich bin angekommen. Todo bien. Alles gut.")
-      say("Mama", "¿Y la gente? ¿Son amables?")
+      say("Mama", o(:mama1))
+      say(me, "#{o(:ja_mama)} Ich bin angekommen. #{o(:alles_gut)} Alles gut.")
+      say("Mama", o(:mama2))
       i = ask(me, "(Was erzähle ich?)", ["Ja. Ein Mann von der Bahn hat mir geholfen.", "Es ist alles... ein bisschen viel."])
       if i == 1
-        say("Mama", "Paso a paso, mija. Schritt für Schritt. Du hast schon so viel geschafft.")
+        say("Mama", "#{o(:schritt)}. Schritt für Schritt. Du schaffst das.")
       else
-        say("Mama", "¡Qué bueno! Siehst du? Du schaffst das.")
+        say("Mama", "#{o(:toll)} Siehst du? Du schaffst das.")
       end
       think("Ich habe Heimweh. Ein bisschen. Aber das sage ich ihr nicht.")
       diary(:d_heimweh, "Videoanruf mit Mama. Sie hat gefragt, ob ich glücklich bin. Ich habe »ja« gesagt. Das stimmt. Meistens. Ein bisschen Heimweh gehört dazu.")
       set(:mama_call)
     else
-      think("Mama schläft jetzt. In Medellín ist es sieben Stunden früher.")
+      think("Mama ist gerade nicht online. #{o(:zeit)}")
     end
     next
   end
@@ -105,7 +105,7 @@ SR::Talk.define(:laptop) do
         say("Jonas", "(von unten) Neu laden! Immer wieder neu laden! Morgens um acht werden abgesagte Termine frei.")
       end
     end
-    p.body = "<b>Ihre Daten</b>\nName: Ríos, {name}\nE-Mail: {name}.rios@mail.co\nDienstleistung: Anmeldung einer Wohnung\nBürgeramt Moabit, heute, 10:20 Uhr"
+    p.body = "<b>Ihre Daten</b>\nName: {nachname}, {name}\nE-Mail: {mail}\nDienstleistung: Anmeldung einer Wohnung\nBürgeramt Moabit, heute, 10:20 Uhr"
     think("Schnell buchen, bevor ihn jemand anderes nimmt!")
     se("Mining found all", 80)
     p.body = "<c3=208030,C0F0C0><b>Ihr Termin wurde gebucht.</b></c3>\nVorgangsnummer: 4711-0815\n\n<b>Benötigte Unterlagen:</b>\n- Reisepass oder Ausweis\n- ausgefülltes Anmeldeformular\n- Wohnungsgeberbestätigung (siehe Merkblatt)"
@@ -156,7 +156,7 @@ SR::Talk.define(:mai) do
   if !flag?(:mai_met)
     say("Mai", "Hi! Du bist {name}, oder? Ich bin Mai. Ich wohne im Zimmer neben dir.")
     say("Mai", "Ich mache eine Ausbildung zur Pflegefachfrau. Jonas hat erzählt, du bist auch aus der Pflege?")
-    say(me, "Ja! In Kolumbien war ich Krankenpflegerin. Hier muss mein Diplom erst anerkannt werden.")
+    say(me, "Ja! {in_land} war ich Krankenpflegerin. Hier muss mein Diplom erst anerkannt werden.")
     say("Mai", "Ich bin vor drei Jahren aus Hanoi gekommen. Am Anfang habe ich im Bus manchmal geweint, weil ich die Durchsagen nicht verstanden habe.")
     say("Mai", "Jetzt verstehe ich sie. Und manchmal ist es gar nicht besser. »Wegen einer Störung im Betriebsablauf...« Hihi.")
     say("Mai", "Für die Anerkennung brauchst du später B2. Aber B1 ist der erste große Schritt. Mach einen Integrationskurs!")
@@ -186,7 +186,7 @@ SR::Talk.define(:fenster) do
 end
 
 SR::Talk.define(:regal) do
-  narr("Ein Lehrbuch »Deutsch A2«, ein Roman von García Márquez und ein Foto von Mama vor ihrem Laden.")
+  narr("Ein Lehrbuch »Deutsch A2«, {buch} und ein Foto von Mama.")
 end
 
 SR::Talk.define(:fernseher) do
@@ -402,7 +402,7 @@ end
 SR::Talk.define(:petersen) do
   face_player
   if flag?(:mb_done)
-    say("Frau Petersen", "Schönen Tag noch, Frau Ríos. Und viel Erfolg in Berlin!")
+    say("Frau Petersen", "Schönen Tag noch, Frau {nachname}. Und viel Erfolg in Berlin!")
   elsif flag?(:aufgerufen)
     say("Frau Petersen", "B-117? Kommen Sie bitte vor an den Tisch.")
   else
@@ -502,10 +502,10 @@ SR::Talk.define(:ba_schalter) do
   say("Frau Petersen", "Pass, Formular, Wohnungsgeberbestätigung... Sehr schön. Einen Moment, bitte.")
   se("PC access", 80)
   pbWait(0.6)
-  say("Frau Petersen", "Familienname Ríos, mit Akzent... Staatsangehörigkeit kolumbianisch... Einzug am ersten Oktober...")
+  say("Frau Petersen", "Familienname {nachname}... Staatsangehörigkeit {staat}... Einzug am ersten Oktober...")
   se("Mart buy item", 80)
   pbWait(0.6)
-  say("Frau Petersen", "So. Hier ist Ihre <b>Meldebescheinigung</b>. Herzlichen Glückwunsch, Frau Ríos. Sie wohnen jetzt offiziell in Berlin.")
+  say("Frau Petersen", "So. Hier ist Ihre <b>Meldebescheinigung</b>. Herzlichen Glückwunsch, Frau {nachname}. Sie wohnen jetzt offiziell in Berlin.")
   SR.take_doc(:anmeldeformular_ok)
   SR.take_doc(:wgb)
   doc(:meldebescheinigung)
@@ -532,14 +532,14 @@ SR::Talk.define(:ba_formulartisch) do
     next
   end
   if !doc?(:anmeldeformular)
-    narr("Formulare in vielen Sprachen. Spanisch ist leider gerade aus.")
+    narr("Formulare in vielen Sprachen. {sprache} ist leider gerade aus.")
     next
   end
   think("Okay. Das Anmeldeformular. Ganz ruhig. Feld für Feld.")
   errors = SR::Mini.form("Anmeldung bei der Meldebehörde", [
-    { :label => "Familienname", :req => true, :o => ["Ríos", "{name}"], :a => 0, :word => :familienname,
+    { :label => "Familienname", :req => true, :o => ["{nachname}", "{name}"], :a => 0, :word => :familienname,
       :why => "Familienname heißt Nachname - der Name der Familie. Der Vorname kommt gleich." },
-    { :label => "Vorname", :req => true, :o => ["{name}", "Ríos"], :a => 0 },
+    { :label => "Vorname", :req => true, :o => ["{name}", "{nachname}"], :a => 0 },
     { :label => "Doktorgrad", :req => false, :o => ["(leer lassen)", "Dr."], :a => 0,
       :why => "Ich habe keinen Doktortitel. Das Feld bleibt leer." },
     { :label => "Ordensname/Künstlername", :req => false, :o => ["(leer lassen)", "DJ Dani", "Schwester {name}"], :a => 0,
@@ -548,7 +548,7 @@ SR::Talk.define(:ba_formulartisch) do
       :why => "In Deutschland schreibt man: Tag. Monat. Jahr. Also 14.03.1998." },
     { :label => "Familienstand", :req => true, :o => ["ledig", "verheiratet", "geschieden", "verwitwet"], :a => 0, :word => :familienstand,
       :why => "Ich bin nicht verheiratet. »Ledig« heißt: nicht verheiratet." },
-    { :label => "Staatsangehörigkeit", :req => true, :o => ["kolumbianisch", "Medellín", "Krankenpflegerin"], :a => 0, :word => :staatsangehoerigkeit,
+    { :label => "Staatsangehörigkeit", :req => true, :o => ["{staat}", "{stadt}", "Krankenpflegerin"], :a => 0, :word => :staatsangehoerigkeit,
       :why => "Staatsangehörigkeit ist das Land, nicht die Stadt oder der Beruf." },
     { :label => "Religionsgesellschaft", :req => false, :o => ["römisch-katholisch", "keine", "(leer lassen)"], :a => [0, 1, 2],
       :yes => "Hinweis: Wer hier eine Kirche angibt, zahlt später Kirchensteuer, wenn man arbeitet. Gut zu wissen!" },
@@ -589,13 +589,13 @@ SR::Talk.define(:schulz) do
       ["Wohnungsgeberin: Ingrid Schulz", false, "Das stimmt."],
       ["Anschrift: Lehrter Straße 21, 10557 Berlin", true, "Moment - Lehrter Straße 21? Ich wohne in der Zwölf! Die Zahlen sind vertauscht."],
       ["Einzug am: 01.10.", false, "Das stimmt, das steht auch im Mietvertrag."],
-      ["Meldepflichtige Person: {name} Ríos", false, "Mein Name - richtig geschrieben, sogar mit Akzent!"],
+      ["Meldepflichtige Person: {name} {nachname}", false, "Mein Name - #{SR.o(:name_ok)}"],
       ["Art: Einzug", false, "Richtig, ich ziehe ein."],
       ["Unterschrift: im Feld »Nur für Behördenvermerke«", true, "Frau Schulz hat das Formular unterschrieben... leider an der falschen Stelle!"]
     ], "Frau Schulz")
     say("Frau Schulz", "Ach Gottchen! Einundzwanzig statt zwölf. Und unterschrieben im Amtsfeld. Das korrigieren wir.")
     say("Frau Schulz", "Wissen Sie, ich vermiete seit 1987. Früher hat man einfach »Herzlich willkommen« gesagt.")
-    say("Frau Schulz", "...Also: Herzlich willkommen, Frau Ríos. Auch ohne Formular.")
+    say("Frau Schulz", "...Also: Herzlich willkommen, Frau {nachname}. Auch ohne Formular.")
     doc(:wgb)
     step(:q_anmeldung, :wgb)
     learn(:vermieterin)

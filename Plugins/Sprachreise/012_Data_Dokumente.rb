@@ -4,18 +4,18 @@
 #===============================================================================
 module SR
   DOCUMENTS = {
-    :reisepass => { :name => "Reisepass", :short => "República de Colombia - Pasaporte",
-      :text => "República de Colombia\nName: RÍOS, {name}\nGeburtsdatum: 14.03.1998\nGeburtsort: Medellín\n" \
+    :reisepass => { :name => "Reisepass", :short => "{pass}",
+      :text => "{pass}\nName: {nachname}, {name}\nGeburtsdatum: 14.03.1998\nGeburtsort: {stadt}\n" \
                "Gültig bis: 2033\n<c3=707078,D8D8D0>Mit eingeklebtem Visum.</c3>" },
     :visum => { :name => "Visum (Typ D)", :short => "Nationales Visum für Deutschland",
       :text => "Nationales Visum (Typ D)\nZweck: Anerkennung ausländischer Berufsqualifikation (Pflege)\n" \
                "Gültig: 12 Monate\n<c3=707078,D8D8D0>Vereinfachte Darstellung. Später kümmert sich die Ausländerbehörde um den Aufenthaltstitel (Episode 7).</c3>" },
     :diplom => { :name => "Pflege-Diplom (übersetzt)", :short => "Beglaubigte Übersetzung",
-      :text => "Diplom: Enfermera (Pflegefachkraft)\nUniversidad de Antioquia, Medellín\n" \
+      :text => "Diplom: Pflegefachkraft\n{uni}\n" \
                "<c3=707078,D8D8D0>Beglaubigte Übersetzung ins Deutsche. Für die volle Anerkennung braucht {name} später Deutsch auf B2-Niveau. Das erste Ziel: B1.</c3>" },
     :mietvertrag => { :name => "Mietvertrag (WG-Zimmer)", :short => "Zimmer in der Lehrter Straße 12",
       :text => "Mietvertrag über ein möbliertes Zimmer\nLehrter Straße 12, 3. OG, 10557 Berlin\n" \
-               "Vermieterin: Ingrid Schulz\nMieterin: {name} Ríos\nEinzug: 01.10.\nWarmmiete: 480 Euro\nKaution: 960 Euro" },
+               "Vermieterin: Ingrid Schulz\nMieterin: {name} {nachname}\nEinzug: 01.10.\nWarmmiete: 480 Euro\nKaution: 960 Euro" },
     :termin => { :name => "Terminbestätigung", :short => "Bürgeramt Moabit, 10:20 Uhr",
       :text => "Ihre Terminbuchung\nDienstleistung: Anmeldung einer Wohnung\nOrt: Bürgeramt Moabit (Rathaus Tiergarten)\n" \
                "Zeit: heute, 10:20 Uhr\nVorgangsnummer: 4711-0815\nBitte bringen Sie mit: Reisepass oder Ausweis, " \
@@ -24,13 +24,13 @@ module SR
       :text => "Anmeldung bei der Meldebehörde\n\nFamilienname, Vorname, Geburtsdatum, Familienstand, Staatsangehörigkeit, " \
                "Einzugsdatum, Art der Wohnung ...\n\n<c3=707078,D8D8D0>Noch nicht ausgefüllt.</c3>" },
     :anmeldeformular_ok => { :name => "Anmeldeformular (ausgefüllt)", :short => "Vollständig ausgefüllt und unterschrieben",
-      :text => "Anmeldung bei der Meldebehörde\nFamilienname: Ríos\nVorname: {name}\nGeburtsdatum: 14.03.1998\n" \
-               "Familienstand: ledig\nStaatsangehörigkeit: kolumbianisch\nEinzug: 01.10.\nArt: Hauptwohnung\nUnterschrift: [x]" },
+      :text => "Anmeldung bei der Meldebehörde\nFamilienname: {nachname}\nVorname: {name}\nGeburtsdatum: 14.03.1998\n" \
+               "Familienstand: ledig\nStaatsangehörigkeit: {staat}\nEinzug: 01.10.\nArt: Hauptwohnung\nUnterschrift: [x]" },
     :wgb => { :name => "Wohnungsgeberbestätigung", :short => "Unterschrieben von Frau Schulz",
       :text => "Bestätigung des Wohnungsgebers\nWohnungsgeberin: Ingrid Schulz\nAnschrift der Wohnung: Lehrter Straße 12, 10557 Berlin\n" \
-               "Einzug am: 01.10.\nMeldepflichtige Person: {name} Ríos\nUnterschrift: I. Schulz" },
+               "Einzug am: 01.10.\nMeldepflichtige Person: {name} {nachname}\nUnterschrift: I. Schulz" },
     :meldebescheinigung => { :name => "Meldebescheinigung", :short => "Einfache Meldebescheinigung",
-      :text => "Einfache Meldebescheinigung\nHiermit wird bescheinigt, dass\n{name} Ríos\nin der Lehrter Straße 12, 10557 Berlin\n" \
+      :text => "Einfache Meldebescheinigung\nHiermit wird bescheinigt, dass\n{name} {nachname}\nin der Lehrter Straße 12, 10557 Berlin\n" \
                "mit Hauptwohnung gemeldet ist.\nBezirksamt Mitte von Berlin - Bürgeramt" },
     :vhs_flyer => { :name => "Flyer: Integrationskurs", :short => "Volkshochschule Berlin-Mitte",
       :text => "Deutsch lernen an der VHS!\nIntegrationskurs A1 bis B1\nMo-Fr, 9:00-12:15 Uhr\nEinstufungstest: jeden Dienstag\n" \

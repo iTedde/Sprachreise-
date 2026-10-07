@@ -2,4 +2,4 @@ Name       = Sprachreise
 Version    = 0.1.0
 Essentials = 21.1
 Credits    = Sprachreise-Team,Ekat99 (Train Station),Baertierchen (Koelner Dom),Lo8jd (Magnet Train),Pokemon Gaia (City autotiles),Vanilla Sunshine and Neo-Spriteman (Gen 4 OWs)
-Scripts    = 001_Core.rb,002_UI_Dialog.rb,003_UI_Mappe.rb,004_Minigames.rb,005_Deutschlandkarte.rb,010_Data_Woerter.rb,011_Data_Quests.rb,012_Data_Dokumente.rb,020_Level1_Berlin.rb,021_Level2_Buergeramt.rb,022_Demo_Ende.rb,030_Deutsch_UI.rb,099_Autotest.rb
+Scripts    = 001_Core.rb,002_UI_Dialog.rb,003_UI_Mappe.rb,004_Minigames.rb,005_Deutschlandkarte.rb,010_Data_Woerter.rb,011_Data_Quests.rb,012_Data_Dokumente.rb,013_Data_Sprachen.rb,020_Level1_Berlin.rb,021_Level2_Buergeramt.rb,022_Demo_Ende.rb,030_Deutsch_UI.rb,099_Autotest.rb

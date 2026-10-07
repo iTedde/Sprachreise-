@@ -55,7 +55,31 @@ module SR
   end
 
   def player_name
-    return ($player && $player.name && !$player.name.empty?) ? $player.name : DEFAULT_NAME
+    return ($player && $player.name && !$player.name.empty?) ? $player.name : o(:first)
+  end
+
+  # ---- Herkunft / Muttersprache --------------------------------------------------
+  def origin
+    k = state.origin
+    return (k && SR::ORIGINS[k]) ? k : :es
+  end
+
+  # Feld aus dem Herkunftsprofil (z.B. o(:stadt) -> "Medellín")
+  def o(field)
+    return SR::ORIGINS[origin][field] || ""
+  end
+
+  # Übersetzung eines Wortes in die Muttersprache
+  def tr(key)
+    w = SR::WORDS[key]
+    return "" if !w
+    return w[:en] if origin == :en
+    t = SR::WORD_TR[key]
+    return (t && t[origin]) || w[:en]
+  end
+
+  def gloss?
+    return state.gloss != false
   end
 
   # ---- Flags -------------------------------------------------------------------
@@ -114,7 +138,7 @@ module SR
     raise "Unbekanntes Wort: #{key}" if !w
     return false if word?(key)
     state.words[key] = { :map => ($game_map ? $game_map.map_id : 0), :episode => state.episode }
-    SR::UI.new_word(w) if !quiet
+    SR::UI.new_word(w, key) if !quiet
     add_points(w[:pts] || 3, nil, true)
     return true
   end
@@ -239,6 +263,7 @@ end
 class SprachreiseState
   attr_accessor :points, :words, :flags, :quests, :docs, :diary, :skills
   attr_accessor :cities, :episode, :episodes_done, :mistakes, :current_city
+  attr_accessor :origin, :gloss
 
   def initialize
     @points        = 0
@@ -253,6 +278,8 @@ class SprachreiseState
     @episodes_done = []
     @mistakes      = 0
     @current_city  = :berlin
+    @origin        = nil
+    @gloss         = true
   end
 end
 
@@ -274,8 +301,8 @@ module GameData
       self::DATA[SR::PLAYER_CHARACTER_ID] = self.new({
         :id           => SR::PLAYER_CHARACTER_ID,
         :trainer_type => :POKEMONTRAINER_Leaf,
-        :walk_charset => "SR_Daniela",
-        :run_charset  => "SR_Daniela_run",
+        :walk_charset => "SR_Heldin",
+        :run_charset  => "SR_Heldin",
         :home         => [SR::MAP_WG, 5, 6, 8]
       })
     end
@@ -349,6 +376,7 @@ module SR
     def initialize(ev); @ev = ev; end
 
     def me; return SR.player_name; end
+    def o(field); return SR.o(field); end
     def say(name, text, opts = {});        SR::UI.say(name, text, opts); end
     def think(text);                        SR::UI.say(SR.player_name, "<i>(#{text})</i>"); end
     def narr(text);                         SR::UI.say(nil, text); end

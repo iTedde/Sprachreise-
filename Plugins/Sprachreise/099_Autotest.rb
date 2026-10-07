@@ -42,6 +42,7 @@ module SR
     #---------------------------------------------------------------------------
     def pick(prompt, n)
       key = prompt.to_s
+      return 0 if key.start_with?("Du spielst")   # Herkunft immer bestätigen
       reverse = @reverse && !@forward_once
       if key == @last_prompt
         @pick_i = reverse ? (@pick_i - 1) % n : (@pick_i + 1) % n
@@ -355,17 +356,15 @@ if SR::Autotest.active? && !TITLE_TEST
     module UI
       class << self
         def say(name, text, opts = {})
-          plain = fmt(text).gsub(/<[^>]*>/, "").gsub("
-", " ")
+          plain = fmt(text).gsub(/<[^>]*>/, "").gsub("\n", " ")
           SR::Autotest.log("  #{name || '-'}: #{plain[0, 120]}")
           @say_n = (@say_n || 0) + 1
-          return if @say_n % 12 != 1
-          # gelegentlich sichtbar anzeigen (nur erste Zeilen), für Screenshots
+          return if @say_n % 6 != 1
+          # gelegentlich sichtbar anzeigen, für Screenshots
           msgwindow = pbCreateMessageWindow(nil)
           namebox = make_namebox(name, msgwindow)
           msgwindow.letterbyletter = false
-          msgwindow.text = fmt(text).split("
-")[0][0, 70]
+          msgwindow.text = fmt(text)
           3.times { Graphics.update; msgwindow.update }
           SR::Autotest.shot("dialog")
           namebox&.dispose
@@ -375,18 +374,21 @@ if SR::Autotest.active? && !TITLE_TEST
         def choose(name, text, options, cancel = -1)
           opts = options.map { |o| fmt(o) }
           ret = SR::Autotest.pick(text.to_s, opts.length)
-          SR::Autotest.log("  ? #{fmt(text).gsub(/<[^>]*>/, '').gsub("
-", ' ')[0, 80]}  > #{opts[ret].gsub(/<[^>]*>/, '')[0, 80]}")
+          SR::Autotest.log("  ? #{plain(text).gsub("\n", ' ')[0, 80]}  > #{opts[ret].gsub(/<[^>]*>/, '')[0, 80]}")
           @choose_n = (@choose_n || 0) + 1
-          if @choose_n % 8 == 1
+          if @choose_n % 5 == 1
+            msgwindow = pbCreateMessageWindow(nil)
+            msgwindow.letterbyletter = false
+            msgwindow.text = fmt(text)
             win = SR::ChoiceWindow.new(opts, Graphics.width - 16)
             win.x = 8
-            win.y = Graphics.height - win.height - 8
+            win.y = [msgwindow.y - win.height + 2, 0].max
             win.z = 99999 + 2
             win.index = ret
-            3.times { Graphics.update; win.update }
+            3.times { Graphics.update; win.update; msgwindow.update }
             SR::Autotest.shot("auswahl")
             win.dispose
+            pbDisposeMessageWindow(msgwindow)
           end
           return ret
         end
@@ -394,7 +396,10 @@ if SR::Autotest.active? && !TITLE_TEST
         alias __sr_banner_real banner
         def banner(title, big, small = nil, se = nil, color = Color.new(48, 96, 200))
           SR::Autotest.log("  [#{title}] #{big}")
-          SR::Autotest.shot("banner") if title.include?("EPISODE") || title.include?("NIVEAU")
+          @banner_n = (@banner_n || 0) + 1
+          return if @banner_n % 5 != 1 && !title.include?("EPISODE")
+          SR::UI.fast = true
+          __sr_banner_real(title, big, small, nil, color)
         end
 
         def episode_card(num)
@@ -435,7 +440,23 @@ if SR::Autotest.active? && !TITLE_TEST
   end
 
   def pbEnterPlayerName(*args)
-    return "Daniela"
+    return args[3] || "Test"
+  end
+
+  # Sprache für den Test: "lang=ar" usw. in sr_autotest.txt
+  module SR
+    class << self
+      alias __sr_choose_origin_real choose_origin
+      def choose_origin
+        cfg = (File.read("sr_autotest.txt") rescue "")
+        if cfg[/lang=(\w+)/] && SR::ORIGINS[$1.to_sym]
+          SR.state.origin = $1.to_sym
+          SR::Autotest.log("  Sprache: #{$1}")
+        else
+          __sr_choose_origin_real
+        end
+      end
+    end
   end
 
   class Scene_Map

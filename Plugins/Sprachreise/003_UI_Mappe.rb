@@ -8,7 +8,7 @@ module SR
     TABS = [
       [:progress, "Fortschritt"],
       [:quests,   "Aufgaben"],
-      [:words,    "Wörterbuch"],
+      [:words,    "Wörter"],
       [:docs,     "Dokumente"],
       [:diary,    "Tagebuch"]
     ]
@@ -99,9 +99,9 @@ module SR
         w = b.text_size(t[1]).width + 12
         if i == @tab
           b.fill_rect(x - 2, 6, w + 4, 30, Color.new(248, 248, 240))
-          pbDrawShadowText(b, x, 10, w, 24, SR::UI.fmt(t[1]), Color.new(48, 56, 80), Color.new(200, 200, 200), 2)
+          pbDrawShadowText(b, x, 10, w, 24, SR::UI.plain(t[1]), Color.new(48, 56, 80), Color.new(200, 200, 200), 1)
         else
-          pbDrawShadowText(b, x, 10, w, 24, SR::UI.fmt(t[1]), Color.new(200, 208, 224), Color.new(24, 28, 40), 2)
+          pbDrawShadowText(b, x, 10, w, 24, SR::UI.plain(t[1]), Color.new(200, 208, 224), Color.new(24, 28, 40), 1)
         end
         x += w + 4
       end
@@ -131,7 +131,7 @@ module SR
         @list.visible = false
       else
         @list.visible = true
-        cmds = @entries.map { |e| SR::UI.fmt(e[1]) }
+        cmds = @entries.map { |e| SR::UI.plain(e[1]) }
         cmds = ["(noch leer)"] if cmds.empty?
         @list.commands = cmds
         @list.index = 0
@@ -179,21 +179,20 @@ module SR
         info = SR.state.words[e[0]]
         head = wd[:art] ? "#{wd[:art]} #{wd[:de]}" : wd[:de]
         txt = "<b>#{head}</b>\n"
-        txt += "<c3=3050C8,C8D0F0>= #{wd[:en]}</c3>\n"
+        txt += "<c3=3050C8,C8D0F0>= #{SR.tr(e[0])}</c3>\n"
+        txt += "<c3=909098,E0E0D8>Englisch: #{wd[:en]}</c3>\n" if SR.origin != :en
         txt += "<c3=806040,E0D0C0>#{wd[:pl]}</c3>\n" if wd[:pl]
         txt += "\n„#{wd[:ex]}“\n" if wd[:ex]
         txt += "\n<c3=707078,D8D8D0>#{wd[:note]}</c3>\n" if wd[:note]
-        txt += "\n<c3=909098,E0E0D8>Thema: #{wd[:cat]} · gelernt in Episode #{info[:episode]}</c3>"
+        txt += "\n<c3=909098,E0E0D8>#{wd[:cat]} · Ep. #{info[:episode]}</c3>"
         sr_text(b, x, y, w, txt, BASE, SHADOW, 24)
         pbSetSmallFont(b)
-        pbDrawShadowText(b, x, Graphics.height - 26, w, 24,
-                         "#{SR.state.words.length} / #{SR::WORDS.length} Wörter", BASE, SHADOW, 1)
       when :docs
         d = SR::DOCUMENTS[e[0]]
-        txt = "<b>#{d[:name]}</b>\n" + SR::UI.fmt(d[:text])
+        txt = "<b>#{d[:name]}</b>\n" + d[:text]
         sr_text(b, x, y, w, txt, BASE, SHADOW, 24)
       when :diary
-        txt = "<c3=806040,E0D0C0>Tagebuch · Episode #{e[0][1]}</c3>\n" + SR::UI.fmt(e[0][2])
+        txt = "<c3=806040,E0D0C0>Tagebuch · Episode #{e[0][1]}</c3>\n" + e[0][2]
         sr_text(b, x, y, w, txt, BASE, SHADOW, 24)
       end
     end
@@ -212,7 +211,7 @@ module SR
       st = SR.state
       li = SR.level_index
       lvl = SR::LEVELS[li]
-      sr_text(b, x, y, w, "<b>#{SR.player_name}</b> · Ziel: Deutsch B1", BASE, SHADOW, 26)
+      sr_text(b, x, y, w, "<b>#{SR.player_name} {nachname}</b> · {stadt} · Ziel: Deutsch B1", BASE, SHADOW, 26)
       y += 32
       # Niveau-Leiste A2 → B1
       bar_x = x
@@ -223,7 +222,7 @@ module SR
         b.fill_rect(bar_x + (i * seg) + 1, y, seg - 2, 22, Color.new(40, 40, 48))
         b.fill_rect(bar_x + (i * seg) + 2, y + 1, seg - 4, 20, col)
         pbDrawShadowText(b, bar_x + (i * seg), y - 1, seg, 24, l[1],
-                         (i <= li) ? Color.new(248, 248, 248) : Color.new(120, 120, 128), Color.new(0, 0, 0, 60), 2)
+                         (i <= li) ? Color.new(248, 248, 248) : Color.new(120, 120, 128), Color.new(0, 0, 0, 60), 1)
       end
       y += 30
       nxt = SR.next_level_points
@@ -253,7 +252,7 @@ module SR
         mark = done ? "[x]" : (cur ? " > " : "[  ]")
         name = (ep[0] > SR::DEMO_LAST_EPISODE && !done && !cur) ? "#{ep[0]}. ???  (#{ep[2]})" : "#{ep[0]}. #{ep[1]}"
         c = done ? Color.new(48, 128, 64) : (cur ? Color.new(48, 80, 176) : Color.new(130, 130, 136))
-        pbDrawShadowText(b, ex, ey, w / 2, 22, SR::UI.fmt("#{mark} #{name}"), c, SHADOW)
+        pbDrawShadowText(b, ex, ey, w / 2, 22, SR::UI.plain("#{mark} #{name}"), c, SHADOW)
       end
       y += 5 * 22 + 6
       pbSetSmallFont(b)
@@ -302,6 +301,26 @@ MenuHandlers.add(:pause_menu, :sr_karte, {
 MenuHandlers.add(:pause_menu, :trainer_card, {
   "name"      => proc { next $player.name },
   "order"     => 50,
+  "condition" => proc { next false },
+  "effect"    => proc { |menu| next false }
+})
+
+# Übersetzungshilfe: markierte Wörter mit Übersetzung in Klammern
+MenuHandlers.add(:pause_menu, :sr_gloss, {
+  "name"      => proc { next SR.gloss? ? "Übersetzung: an" : "Übersetzung: aus" },
+  "order"     => 7,
+  "effect"    => proc { |menu|
+    pbPlayDecisionSE
+    SR.state.gloss = !SR.gloss?
+    pbMessage(SR.gloss? ? 'Übersetzungen werden jetzt angezeigt.' : 'Übersetzungen sind jetzt aus. Mutig!')
+    next true
+  }
+})
+
+# Die Tasche bleibt leer – im Menü ausblenden.
+MenuHandlers.add(:pause_menu, :bag, {
+  "name"      => "Tasche",
+  "order"     => 30,
   "condition" => proc { next false },
   "effect"    => proc { |menu| next false }
 })

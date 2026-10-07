@@ -10,7 +10,7 @@ START = (76, 7, 19)
 
 # Gen-4-Overworlds (Vanilla Sunshine / Neo-Spriteman) -> Graphics/Characters
 CHARS = {
-    "SR_Daniela": "NPC 76", "SR_Daniela_run": "NPC 76", "SR_Tarek": "NPC 01", "SR_Jonas": "NPC 49",
+    "SR_Heldin": "NPC 76", "SR_Tarek": "NPC 01", "SR_Jonas": "NPC 49",
     "SR_Petersen": "NPC 32", "SR_Mohammed": "NPC 13", "SR_Ercan": "NPC 07", "SR_Kaya": "NPC 27",
     "SR_Tourist": "NPC 24", "SR_Bauarbeiter": "NPC 85", "SR_Mai": "NPC 28", "SR_Polizist": "NPC 38",
 }

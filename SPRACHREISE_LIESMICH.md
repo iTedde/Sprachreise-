@@ -1,7 +1,14 @@
 # Sprachreise – Demo (Episode 1 + 2)
 
 ## Spielen
-`Game.exe` starten → **ENTER** → **Neues Spiel**.
+`Game.exe` starten → **ENTER** → **Neues Spiel** → **Muttersprache wählen**.
+
+**Sechs Herkunftssprachen:** Spanisch, Arabisch, Französisch, Englisch, Türkisch, Ukrainisch.
+Je nach Wahl ändern sich Name, Heimatstadt und Geschichte der Hauptfigur (z. B. Rania aus Amman, Elif aus Izmir),
+und alle Übersetzungen (Wörterbuch, markierte Lernwörter, Mamas Anrufe) erscheinen in dieser Sprache.
+Blau markierte Wörter zeigen die Übersetzung in Klammern – abschaltbar im Menü unter **Übersetzung: an/aus**.
+
+Android, Mac, iPhone: siehe `PLATTFORMEN.md`.
 
 | Taste | Funktion |
 |---|---|
@@ -12,6 +19,7 @@
 Im Menü:
 - **Sprachmappe** – Fortschritt (A2 → B1), Aufgaben, Wörterbuch, Dokumente, Tagebuch (Links/Rechts wechselt den Reiter)
 - **Deutschlandkarte** – Reiseroute und freigeschaltete Städte
+- **Übersetzung: an/aus** – Übersetzungshilfe in der Muttersprache
 - **Speichern** – speichert alles, auch Wörter, Aufgaben und Dokumente
 
 **Lösungsweg in Kurzform:** Bahnhofshalle: Tarek fragen → Europaplatz (Norden) → rechts → erste Straße links (Lehrter Straße) → Nr. 12 rechts klingeln → WG: Jonas → oben schlafen → Laptop: Termin → Copyshop (Turmstraße) → Bürgeramt (Rathaus) → Frau Schulz im Hinterhof → Bürgeramt (Formulartisch, Platz 1) → WG → Hbf: Reisezentrum → Köln.
@@ -28,6 +36,9 @@ Alles ist **zusätzlich** zum Essentials-Projekt – kein Essentials-Script wurd
 | `Data/System.rxdata` | Startposition (Karte 76) und Skript-Schalter 101–109 |
 | `Graphics/Tilesets/SR Deutschland.png`, `Graphics/Autotiles/SR *.png` | Tileset aus Essentials + Train Station + ICE + Kölner Dom |
 | `Graphics/Characters/SR_*.png` | Figuren (Gen-4-Overworlds) |
+| `Plugins/Sprachreise/013_Data_Sprachen.rb` | Herkunftsprofile + Übersetzungen (erzeugt von `Werkzeuge/sprachen.py`) |
+| `Fonts/SR Unifont.ttf` | Ersatzschrift für Arabisch, Kyrillisch, Türkisch (GNU Unifont, OFL, auf die nötigen Zeichen gekürzt) |
+| `Graphics/Windowskins/SR Text.png`, `SR Menue.png` | Fensterrahmen |
 | `Graphics/UI/Sprachreise/deutschland.png` | Deutschlandkarte |
 | `Graphics/Titles/title.png`, `start.png` | Titelbild (Original in `X:\Sprachreise\_Backup_Original`) |
 | `Game.ini`, `mkxp.json` | Fenstertitel „Sprachreise“ (eigener Speicherordner `%APPDATA%\Sprachreise`) |
@@ -48,11 +59,14 @@ SR::Talk.define(:meine_szene) do
   diary(:mein_eintrag, "Heute ...")
 end
 ```
+In Texten: `[[termin]]` hebt ein Lernwort hervor und hängt die Übersetzung an; Platzhalter `{name}`, `{nachname}`, `{stadt}`, `{land}`, `{aus_land}`, `{in_land}`, `{staat}`, `{sprache}` werden passend zur gewählten Herkunft ersetzt.
+Neue Übersetzungen kommen in `Werkzeuge/sprachen.py` (danach `py sprachen.py` ausführen – Arabisch wird dabei automatisch in die richtige Anzeigeform gebracht).
+
 Minispiele: `SR::Mini.quiz`, `.form`, `.find_errors`, `.pick_docs`, `.phone`, `.letter` (Beispiele in `021_Level2_Buergeramt.rb`).
 
 ## Automatischer Test
 Leere Datei `sr_autotest.txt` in diesen Ordner legen und `Game.exe` starten: Die Demo wird komplett automatisch durchgespielt (alle Events, Erreichbarkeit, Speichern/Laden). Ergebnis und Screenshots landen in `sr_test/`. Ein vorhandener Spielstand wird vorher gesichert und danach wiederhergestellt. Datei danach wieder löschen.
-Mit dem Inhalt `reverse` in der Datei werden die alternativen Antworten getestet.
+Mit dem Inhalt `reverse` in der Datei werden die alternativen Antworten getestet, mit `lang=ar` (bzw. `fr`, `en`, `tr`, `uk`) eine bestimmte Herkunftssprache.
 
 ## Werkzeuge
 `X:\Sprachreise\Sprachreise_Werkzeuge\` – Python-Skripte, mit denen Tileset, Karten, Deutschlandkarte und Titelbild erzeugt wurden (`build_maps.py --save` erzeugt die Karten neu; Achtung: überschreibt Änderungen, die im RPG Maker an den Karten 76–81 gemacht wurden).
