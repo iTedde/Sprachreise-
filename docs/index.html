@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#181c28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Sprachreise">
+<title>Sprachreise</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/ui/icon-192.png">
+<link rel="apple-touch-icon" href="img/ui/icon-192.png">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div id="stage">
+  <div id="game">
+    <canvas id="map" width="512" height="384"></canvas>
+    <div id="ui"></div>
+  </div>
+</div>
+<div id="touch" aria-hidden="true">
+  <div id="dpad">
+    <div class="dp up" data-k="up"></div><div class="dp left" data-k="left"></div>
+    <div class="dp right" data-k="right"></div><div class="dp down" data-k="down"></div>
+    <div class="dp mid"></div>
+  </div>
+  <div id="btns">
+    <div class="tb b" data-k="back">B</div>
+    <div class="tb a" data-k="ok">A</div>
+    <div class="tb menu" data-k="menu">MENÜ</div>
+    <div class="tb run" data-k="run">RENNEN</div>
+  </div>
+</div>
+<div id="boot">Sprachreise wird geladen …</div>
+
+<!-- Daten (von tools/export.py erzeugt) -->
+<script src="data/tilesets.js"></script>
+<script src="data/maps.js"></script>
+<script src="data/lang.js"></script>
+<script src="data/audio.js"></script>
+<script src="data/bgm.js"></script>
+
+<!-- Engine -->
+<script src="js/00_util.js"></script>
+<script src="js/01_audio.js"></script>
+<script src="js/02_input.js"></script>
+<script src="js/03_state.js"></script>
+<script src="js/04_map.js"></script>
+<script src="js/05_chars.js"></script>
+<script src="js/06_world.js"></script>
+<script src="js/10_text.js"></script>
+<script src="js/11_ui.js"></script>
+<script src="js/12_minigames.js"></script>
+<script src="js/13_typing.js"></script>
+<script src="js/14_alltag.js"></script>
+<script src="js/15_debatte.js"></script>
+<script src="js/16_mappe.js"></script>
+<script src="js/17_karte.js"></script>
+<script src="js/18_title.js"></script>
+
+<!-- Inhalte -->
+<script src="js/20_data_woerter.js"></script>
+<script src="js/21_data_aufgaben.js"></script>
+<script src="js/22_data_dokumente.js"></script>
+<script src="js/23_data_personen.js"></script>
+<script src="js/30_ep01_ankommen.js"></script>
+<script src="js/31_ep02_buergeramt.js"></script>
+<script src="js/32_ep03_kiez.js"></script>
+<script src="js/33_ep04_koeln.js"></script>
+<script src="js/34_ep05_kollegen.js"></script>
+<script src="js/35_ep06_krank.js"></script>
+<script src="js/36_ep07_reise.js"></script>
+<script src="js/37_ep08_auslaenderbehoerde.js"></script>
+<script src="js/38_ep09_stadtfest.js"></script>
+<script src="js/39_ep10_hamburg.js"></script>
+
+<script src="js/90_autotest.js"></script>
+<script src="js/91_routes.js"></script>
+<script src="js/99_main.js"></script>
+</body>
+</html>

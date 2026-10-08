@@ -1,0 +1,34 @@
+# XcodeGen-Projektbeschreibung für die iPhone/iPad-App.
+# Auf einem Mac:  brew install xcodegen  →  ./prepare.sh  →  xcodegen  →  open Sprachreise.xcodeproj
+name: Sprachreise
+options:
+  bundleIdPrefix: de.sprachreise
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  Sprachreise:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sprachreise
+      - path: www
+        type: folder
+        buildPhase: resources
+    info:
+      path: Sprachreise/Info.plist
+      properties:
+        CFBundleDisplayName: Sprachreise
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        UIStatusBarHidden: true
+        UIViewControllerBasedStatusBarAppearance: false
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: de.sprachreise.app
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_STYLE: Automatic

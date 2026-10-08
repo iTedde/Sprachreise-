@@ -1,13 +1,33 @@
 # Sprachreise – Deutsch von A2 bis B1
 
-Ein kleines RPG im Stil von Pokémon Essentials über eine Reise durch Deutschland, Sprache und Bürokratie.
-Die Hauptfigur kommt in Berlin an, meldet sich beim Bürgeramt an und lernt dabei Deutsch – von A2 Richtung B1.
+Ein RPG über Deutschland, Sprache, Freundschaft und Bürokratie: von Berlin über Köln, Frankfurt, München und Dresden bis nach Hamburg.
+**Alle 10 Episoden spielbar** – im Browser, auf Android und auf dem iPhone.
 
-**Demo:** Episode 1 „Ankommen“ und Episode 2 „Das Bürgeramt“ sind spielbar, danach geht es nach Köln.
-Alle 10 Episoden sind in [`Sprachreise_Designdokument.md`](Sprachreise_Designdokument.md) beschrieben.
-Android, Mac, iPhone: [`PLATTFORMEN.md`](PLATTFORMEN.md).
+## ▶️ Du willst einfach spielen?
+### 👉 [**Hier ist die Anleitung: So spielst du Sprachreise**](ANLEITUNG_SO_SPIELST_DU.md) 👈
 
-## Spielen
+| Direkt-Download | |
+|---|---|
+| 🤖 Android-App | [Sprachreise.apk](https://github.com/iTedde/Sprachreise-/raw/main/Download/Sprachreise.apk) |
+| 💻 Windows / Mac / Linux | [Sprachreise_Web.zip](https://github.com/iTedde/Sprachreise-/raw/main/Download/Sprachreise_Web.zip) → entpacken → `index.html` öffnen |
+| 📱 iPhone / iPad / im Browser | **https://itedde.github.io/Sprachreise-/** |
+
+---
+
+## Für Entwickler
+| Ordner | Inhalt |
+|---|---|
+| `Web-Version/` | **Vollversion** (eigene JavaScript-Engine): Quelltext, Karten-Werkzeuge, Android- und iOS-Projekt, automatischer Test – siehe [`Web-Version/README.md`](Web-Version/README.md) |
+| `docs/` | spielbare Kopie der Web-Version für GitHub Pages |
+| `Download/` | fertige APK und Web-ZIP |
+| Hauptordner | ursprüngliche **Pokémon-Essentials-Demo** (Episode 1 + 2, Windows, `Game.exe`) |
+
+Konzept und alle Episoden: [`Sprachreise_Designdokument.md`](Sprachreise_Designdokument.md).
+
+---
+
+## Original-Demo (Pokémon Essentials)
+### Spielen
 `Game.exe` starten → **ENTER** → **Neues Spiel** → **Muttersprache wählen**.
 
 **Sechs Herkunftssprachen:** Spanisch, Arabisch, Französisch, Englisch, Türkisch, Ukrainisch.
@@ -31,7 +51,7 @@ Im Menü:
 
 **Lösungsweg in Kurzform:** Bahnhofshalle: Tarek fragen → Europaplatz (Norden) → rechts → erste Straße links (Lehrter Straße) → Nr. 12 rechts klingeln → WG: Jonas → oben schlafen → Laptop: Termin → Copyshop (Turmstraße) → Bürgeramt (Rathaus) → Frau Schulz im Hinterhof → Bürgeramt (Formulartisch, Platz 1) → WG → Hbf: Reisezentrum → Köln.
 
-## Was wurde geändert?
+### Was wurde geändert?
 Alles ist **zusätzlich** zum Essentials-Projekt – kein Essentials-Script wurde verändert.
 
 | Ort | Inhalt |
@@ -50,7 +70,7 @@ Alles ist **zusätzlich** zum Essentials-Projekt – kein Essentials-Script wurd
 | `Game.ini`, `mkxp.json` | Fenstertitel „Sprachreise“ (eigener Speicherordner `%APPDATA%\Sprachreise`) |
 
 
-## Neue Inhalte schreiben
+### Neue Inhalte schreiben
 Eine Szene in einer `.rb`-Datei definieren und im RPG Maker XP einem Event den Skriptbefehl `sr_talk(:meine_szene)` geben:
 
 ```ruby
@@ -69,13 +89,13 @@ Neue Übersetzungen kommen in `Werkzeuge/sprachen.py` (danach `py sprachen.py` a
 
 Minispiele: `SR::Mini.quiz`, `.form`, `.find_errors`, `.pick_docs`, `.phone`, `.letter` (Beispiele in `021_Level2_Buergeramt.rb`).
 
-## Automatischer Test
+### Automatischer Test
 Leere Datei `sr_autotest.txt` in diesen Ordner legen und `Game.exe` starten: Die Demo wird komplett automatisch durchgespielt (alle Events, Erreichbarkeit, Speichern/Laden). Ergebnis und Screenshots landen in `sr_test/`. Ein vorhandener Spielstand wird vorher gesichert und danach wiederhergestellt. Datei danach wieder löschen.
 Mit dem Inhalt `reverse` in der Datei werden die alternativen Antworten getestet, mit `lang=ar` (bzw. `fr`, `en`, `tr`, `uk`) eine bestimmte Herkunftssprache.
 
-## Werkzeuge
+### Werkzeuge
 `Werkzeuge/` – Python-Skripte, mit denen Tileset, Karten, Deutschlandkarte und Titelbild erzeugt wurden (`build_maps.py --save` erzeugt die Karten neu; Achtung: überschreibt Änderungen, die im RPG Maker an den Karten 76–81 gemacht wurden).
 
-## Credits
+### Credits
 Engine: Pokémon Essentials v21.1 · Train Station: Ekat99 · Kölner Dom: Baertierchen · Magnetbahn/ICE: Lo8jd · City-Autotiles: Pokémon Gaia · Gen-4-Overworlds: Vanilla Sunshine, Neo-Spriteman u. a. · Ersatzschrift: GNU Unifont (SIL OFL)
 Nicht-kommerzielles Fanprojekt. Mehrere Grafiken sind nur für nicht-kommerzielle Nutzung freigegeben.

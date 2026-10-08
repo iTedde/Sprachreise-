@@ -4,3 +4,12 @@ sr_autotest.txt
 *.sr_test_backup
 __pycache__/
 Werkzeuge/render/
+# Web-Version: lokale Build-Werkzeuge, Schlüssel, Testausgaben
+Web-Version/android/sdk_dl/
+Web-Version/android/build/
+*.keystore
+*.idsig
+Web-Version/test/shots/
+Web-Version/test/*.log
+Web-Version/tools/render/
+Web-Version/dist/
