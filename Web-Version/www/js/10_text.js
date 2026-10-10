@@ -11,7 +11,7 @@ const Text = {
         "{heimweh}": "heimweh" },
   // Text ohne HTML (für Vergleiche, Listen)
   plainRaw(t) {
-    t = String(t ?? "");
+    t = String(t == null ? "" : t);
     t = t.replace(/\{name\}/g, SR.playerName());
     for (const k in this.PH) t = t.split(k).join(SR.o(this.PH[k]));
     t = t.replace(/\{mail\}/g, SR.playerName().toLowerCase() + "@mail.com");
@@ -21,7 +21,7 @@ const Text = {
   plain(t) { return this.plainRaw(t).replace(/<[^>]*>/g, ""); },
   // HTML für Anzeige
   fmt(t) {
-    t = String(t ?? "");
+    t = String(t == null ? "" : t);
     // erlaubte Tags schützen, Rest escapen
     const parts = t.split(/(<\/?(?:b|i|u|br|c3[^>]*)>)/);
     let out = "";

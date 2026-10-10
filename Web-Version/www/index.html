@@ -13,6 +13,18 @@
 <link rel="icon" href="img/ui/icon-192.png">
 <link rel="apple-touch-icon" href="img/ui/icon-192.png">
 <link rel="stylesheet" href="css/game.css">
+<script>
+// Fehler sichtbar machen (ES5, damit es auch auf sehr alten Geräten läuft)
+window.onerror = function (msg, src, line) {
+  var d = document.getElementById("sr-err");
+  if (!d) { d = document.createElement("div"); d.id = "sr-err";
+    d.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:999;background:#a02020;color:#fff;font:13px sans-serif;padding:6px 10px;max-height:40%;overflow:auto";
+    (document.body || document.documentElement).appendChild(d); }
+  d.appendChild(document.createTextNode("Fehler: " + msg + " (" + String(src || "").split("/").pop() + ":" + line + ") – " + navigator.userAgent));
+  d.appendChild(document.createElement("br"));
+};
+window.addEventListener("unhandledrejection", function (e) { window.onerror(e.reason && (e.reason.stack || e.reason.message) || e.reason, "", 0); });
+</script>
 </head>
 <body>
 <div id="stage">

@@ -150,7 +150,7 @@ const Typing = {
       let tries = 0, hintLv = 0, usedDict = false, finished = false;
 
       const insert = ch => {
-        const s = inp.selectionStart ?? inp.value.length, e = inp.selectionEnd ?? inp.value.length;
+        const s = inp.selectionStart != null ? inp.selectionStart : inp.value.length, e = inp.selectionEnd != null ? inp.selectionEnd : inp.value.length;
         inp.value = inp.value.slice(0, s) + ch + inp.value.slice(e);
         inp.focus(); inp.setSelectionRange(s + 1, s + 1);
       };

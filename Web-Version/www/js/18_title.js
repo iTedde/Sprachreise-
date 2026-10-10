@@ -31,9 +31,11 @@ const Title = {
     const press = UI.add("div", "press", "Taste drücken / Tippen", t);
     if (!UI.test()) {
       await new Promise(r => {
-        const fin = () => { Input.popModal(h); t.removeEventListener("pointerup", fin); r(); };
+        // "click" statt "pointerup": der Tipp löst so keinen Geister-Klick im danach geöffneten Menü aus
+        let done = false;
+        const fin = () => { if (done) return; done = true; Input.popModal(h); t.removeEventListener("click", fin); r(); };
         const h = () => fin();
-        Input.pushModal(h); t.addEventListener("pointerup", fin);
+        Input.pushModal(h); t.addEventListener("click", fin);
       });
     }
     Audio_.unlock();

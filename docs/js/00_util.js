@@ -1,5 +1,31 @@
 // Sprachreise – Hilfsfunktionen
 "use strict";
+
+// Ältere iPads (iOS/iPadOS 12) kennen keine Pointer-Events: pointer*-Listener auf Touch-Events umleiten
+if (!window.PointerEvent && "ontouchstart" in window) {
+  const MAP = { pointerdown: "touchstart", pointermove: "touchmove", pointerup: "touchend", pointercancel: "touchcancel" };
+  const add = EventTarget.prototype.addEventListener, rem = EventTarget.prototype.removeEventListener;
+  const wraps = new WeakMap();
+  const wrap = fn => {
+    if (typeof fn !== "function") return fn;
+    if (!wraps.has(fn)) wraps.set(fn, function (e) {
+      const t = (e.changedTouches && e.changedTouches[0]) || {};
+      for (const k of ["clientX", "clientY", "pageX", "pageY"]) Object.defineProperty(e, k, { value: t[k], configurable: true });
+      Object.defineProperty(e, "pointerType", { value: "touch", configurable: true });
+      Object.defineProperty(e, "pointerId", { value: t.identifier || 0, configurable: true });
+      return fn.call(this, e);
+    });
+    return wraps.get(fn);
+  };
+  EventTarget.prototype.addEventListener = function (type, fn, o) {
+    if (type === "pointerenter" || type === "pointerleave") return;
+    return MAP[type] ? add.call(this, MAP[type], wrap(fn), o) : add.call(this, type, fn, o);
+  };
+  EventTarget.prototype.removeEventListener = function (type, fn, o) {
+    return MAP[type] ? rem.call(this, MAP[type], wrap(fn), o) : rem.call(this, type, fn, o);
+  };
+  if (!Element.prototype.setPointerCapture) Element.prototype.setPointerCapture = function () { };
+}
 window.SR = window.SR || {};
 const SR_DATA = window.SR_DATA || {};
 

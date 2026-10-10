@@ -19,13 +19,13 @@
 html, body { margin: 0; height: 100%; background: #0c0e14; overflow: hidden; touch-action: none;
   -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 body { font-family: var(--font); color: var(--ink); }
-#stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; }
 #game { position: relative; width: 512px; height: 384px; transform-origin: center center; background: #000;
   overflow: hidden; flex: none; }
 #map { position: absolute; left: 0; top: 0; width: 512px; height: 384px; image-rendering: pixelated;
   image-rendering: crisp-edges; }
-#ui { position: absolute; inset: 0; font-size: 21px; line-height: 26px; }
-#boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; color: #ccd;
+#ui { position: absolute; top: 0; right: 0; bottom: 0; left: 0; font-size: 21px; line-height: 26px; }
+#boot { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: flex; align-items: center; justify-content: center; color: #ccd;
   font: 18px sans-serif; background: #0c0e14; z-index: 100; }
 
 /* ---------- allgemeine Fenster ---------- */
@@ -78,7 +78,7 @@ i { font-style: normal; color: #4a5070; }
 #mapname.off { transform: translateY(-60px); opacity: 0; }
 
 /* ---------- Banner ---------- */
-#veil { position: absolute; inset: 0; background: rgba(10,12,24,.45); z-index: 70; }
+#veil { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: rgba(10,12,24,.45); z-index: 70; }
 .banner { left: 32px; right: 32px; top: 50%; transform: translateY(-55%); z-index: 71; text-align: center;
   overflow: hidden; padding: 0 0 12px; animation: bin .2s ease-out; }
 @keyframes bin { from { opacity: 0; margin-top: 16px; } to { opacity: 1; margin-top: 0; } }
@@ -87,8 +87,8 @@ i { font-style: normal; color: #4a5070; }
 .banner .small { border-top: 1px solid #dcd8cc; margin: 6px 22px 0; padding-top: 6px; color: #464a5c; font-size: 19px; }
 
 /* ---------- Überblendung / Ton ---------- */
-#fade { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 80; transition: opacity .25s; }
-#tone { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 30; }
+#fade { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #000; opacity: 0; pointer-events: none; z-index: 80; transition: opacity .25s; }
+#tone { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #000; opacity: 0; pointer-events: none; z-index: 30; }
 
 /* ---------- Papier / Bildschirm ---------- */
 .paper { left: 12px; right: 12px; top: 6px; z-index: 45; overflow: hidden; border-color: #1e1e24; border-radius: 4px; }
@@ -102,7 +102,7 @@ i { font-style: normal; color: #4a5070; }
 .paper .mono { font-family: "Consolas", "Courier New", monospace; font-size: 15px; line-height: 19px; }
 
 /* ---------- Episodenkarte ---------- */
-.card { position: absolute; inset: 0; background: #181c28; z-index: 90; display: flex; flex-direction: column;
+.card { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: #181c28; z-index: 90; display: flex; flex-direction: column;
   align-items: center; justify-content: center; color: #fff; text-align: center; transition: opacity .5s; }
 .card .flag { width: 100%; height: 12px; margin: 14px 0;
   background: linear-gradient(#000 0 33%, #dd0000 33% 66%, #ffce00 66%); }
@@ -112,7 +112,7 @@ i { font-style: normal; color: #4a5070; }
 .card .t4 { color: #a8b0c8; font-size: 16px; line-height: 20px; margin-top: 10px; max-width: 440px; }
 
 /* ---------- Panels (Menü, Mappe, Karte, Minispiele) ---------- */
-.panel { position: absolute; inset: 0; z-index: 85; background: var(--cream); overflow: hidden; }
+.panel { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 85; background: var(--cream); overflow: hidden; }
 .panel .top { height: 40px; background: var(--navy); color: #fff; display: flex; align-items: center; padding: 0 8px;
   border-bottom: 2px solid #000; box-shadow: 0 2px 0 #dd0000, 0 3px 0 var(--gold); font-size: 19px; gap: 4px; }
 .tab { padding: 1px 5px; color: #c8d0e0; border-radius: 4px 4px 0 0; cursor: pointer; font-size: 15px; white-space: nowrap; }
@@ -185,7 +185,7 @@ i { font-style: normal; color: #4a5070; }
 .icon .lbl { position: absolute; bottom: -2px; left: 0; right: 0; text-align: center; font-size: 12px; line-height: 14px; color: #556; }
 
 /* ---------- Argumentation ---------- */
-.debate { position: absolute; inset: 0; z-index: 72; pointer-events: none; }
+.debate { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 72; pointer-events: none; }
 .debate .hud { position: absolute; left: 8px; right: 8px; top: 6px; display: flex; justify-content: space-between; gap: 10px; }
 .meter { background: rgba(252,251,246,.95); border: 3px solid var(--navy); border-radius: 8px; padding: 2px 8px 4px;
   width: 238px; font-size: 16px; line-height: 19px; }
@@ -210,7 +210,7 @@ i { font-style: normal; color: #4a5070; }
 .karte .city { position: absolute; transform: translate(-50%, -50%); cursor: pointer; width: 26px; height: 26px; }
 
 /* ---------- Titel ---------- */
-.title { position: absolute; inset: 0; z-index: 95; background: #000 center/cover no-repeat; }
+.title { cursor: pointer; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 95; background: #000 center/cover no-repeat; }
 .title .tmenu { position: absolute; left: 50%; bottom: 58px; transform: translateX(-50%); width: 300px; padding: 6px; }
 .title .press { position: absolute; left: 0; right: 0; bottom: 36px; text-align: center; color: #fff; font-size: 22px;
   text-shadow: 0 2px 0 #000; animation: blink 1.2s infinite; }
@@ -218,7 +218,7 @@ i { font-style: normal; color: #4a5070; }
 .title .ver { position: absolute; right: 6px; bottom: 2px; color: #bbc; font-size: 12px; text-shadow: 0 1px 0 #000; }
 
 /* ---------- Touch-Steuerung ---------- */
-#touch { position: fixed; inset: 0; pointer-events: none; z-index: 20; display: none; }
+#touch { position: fixed; top: 0; right: 0; bottom: 0; left: 0; pointer-events: none; z-index: 20; display: none; }
 body.touch #touch { display: block; }
 #dpad { position: absolute; left: max(12px, env(safe-area-inset-left)); bottom: 18px; width: 150px; height: 150px; pointer-events: auto; }
 .dp { position: absolute; width: 50px; height: 50px; background: rgba(255,255,255,.14); border: 2px solid rgba(255,255,255,.25); }

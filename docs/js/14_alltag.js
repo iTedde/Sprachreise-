@@ -43,7 +43,7 @@ const Pick = {
     const shown = await UI.say(speaker, prompt, { noWait: true, keep: true });
     UI.modalCount++;
     const box = UI.add("div", "win", "");
-    box.style.cssText = `left:${opts.left ?? 40}px;right:${opts.right ?? 40}px;bottom:${shown.box.offsetHeight + 14}px;padding:8px 6px 12px;z-index:53`;
+    box.style.cssText = `left:${opts.left != null ? opts.left : 40}px;right:${opts.right != null ? opts.right : 40}px;bottom:${shown.box.offsetHeight + 14}px;padding:8px 6px 12px;z-index:53`;
     if (shown.tag) shown.tag.style.display = "none";
     const wrap = UI.add("div", "icons", "", box);
     const els = items.map(it => {
@@ -54,7 +54,7 @@ const Pick = {
     const sel = i => { idx = (i + els.length) % els.length; els.forEach((e, j) => e.classList.toggle("sel", j === idx)); };
     sel(0);
     const key = await new Promise(res => {
-      if (UI.test()) { const c = Array.isArray(correct) ? correct[0] : correct; return setTimeout(() => res(c ?? items[0].key), 0); }
+      if (UI.test()) { const c = Array.isArray(correct) ? correct[0] : correct; return setTimeout(() => res(c != null ? c : items[0].key), 0); }
       const fin = i => { Input.popModal(h); Audio_.se("decision", 0.6); res(items[i].key); };
       const perRow = Math.max(1, Math.floor(wrap.clientWidth / 70));
       const h = k => {
